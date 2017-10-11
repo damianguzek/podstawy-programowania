@@ -11,22 +11,68 @@
 #include <string.h>
 #include <stdlib.h>
 
+char* removeRepetitions (char*);
+int containsAny (char*, char*);
+void printCombinations (char*, char*, int);
+
+
 //
-//  containsAny (char* set, char* string)
+//  main ()
 //
-//  returns 1 if set contains any of the chars in set
-//
-int containsAny (char* set, char* string) {
+int main () {
+    int     letters_len = 0;
+    int     repetition  = 0;
     
-    for (int i = 0; i < strlen(set); i++) {
+    char*   letters     = malloc(255);
+    char*   response    = malloc(2);
+    
+    // init letters
+    printf("Podaj litery do kombinacji (max 255): ");
+    scanf("%s", letters);
+    
+    // ask for repetition
+    while (!containsAny("tnTN", response)) {
+        printf("Czy kombinacja ma być bez powtórzeń? (T/N) ");
+        scanf("%1s", response);
+    }
+    
+    // remove repetitions from input string if we don't want those
+    if (!(repetition = !containsAny("tT", response))) {
+        letters = removeRepetitions(letters);
+    }
+    
+    // do it
+    printCombinations(letters, "", repetition);
+}
+
+
+//
+//  removeRepetitions (char* string)
+//
+//  removes repetitive characters from string
+//
+char* removeRepetitions(char* string) {
+    
+    // init our result string
+    char*   new_string;
+    new_string = malloc(strlen(string) + 1);
+    
+    // for every char in string
+    for (int i = 0; i < strlen(string); i++) {
         
-        // if string contains the letter
-        if (strrchr(string, set[i]) != NULL) {
-            return 1;
+        // init this char as string
+        char    letter[2];
+        letter[0] = string[i];
+        letter[1] = '\0';
+        
+        // if it hasn't occured in result, add
+        // so if it isn't a repetition, doesn't ignore
+        if (!containsAny(letter, new_string)) {
+            strcat(new_string, letter);
         }
     }
     
-    return 0;
+    return new_string;
 }
 
 
@@ -67,7 +113,7 @@ void printCombinations (char* letters, char* prefix, int repetition) {
         if (current_pos >= letters_len) {
             printf("%s\n", new_prefix);
             
-        } else {
+        } else {  // or maybe not
             printCombinations(letters, new_prefix, repetition);
         }
         
@@ -76,27 +122,19 @@ void printCombinations (char* letters, char* prefix, int repetition) {
 
 
 //
-//  main ()
+//  containsAny (char* set, char* string)
 //
-int main () {
-    int     letters_len = 0;
-    int     repetition  = 0;
+//  returns 1 if string contains any of the chars in set
+//
+int containsAny (char* set, char* string) {
     
-    char*   letters     = malloc(255);
-    char*   response    = malloc(2);
-    
-    // init letters
-    printf("Podaj litery do kombinacji (max 255): ");
-    scanf("%s", letters);
-    
-    // ask for repetition
-    while (!containsAny("tnTN", response)) {
-        printf("Czy kombinacja ma być bez powtórzeń? (T/N) ");
-        scanf("%1s", response);
+    for (int i = 0; i < strlen(set); i++) {
+        
+        // if string contains the letter
+        if (strrchr(string, set[i]) != NULL) {
+            return 1;
+        }
     }
     
-    repetition = !containsAny("tT", response);
-    
-    // do it
-    printCombinations(letters, "", repetition);
+    return 0;
 }

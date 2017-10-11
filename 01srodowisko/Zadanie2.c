@@ -13,8 +13,9 @@
 // int main() bez return
 //
 
-// Tutaj gcc wyrzuci warning i automatycznie dopasuje typ int
-// Nieładnie zrobione, C99 na to nie pozwala, ale kto programiście zabroni
+// C99 nie pozwala na typy domyślne, więc gcc wyrzuci warning
+// w odniesieniu do main (), ale program będzie działał.
+// Ominięcie return jednak jest zgodne ze standardem.
 
 //int
 main () {
