@@ -11,9 +11,10 @@
 #include <string.h>
 #include <stdlib.h>
 
-char* removeRepetitions (char*);
-int containsAny (char*, char*);
-void printCombinations (char*, char*, int);
+
+int     containsAny         (char*, char*);
+char*   removeRepetitions   (char*);
+void    printCombinations   (char*, char*, int);
 
 
 //
@@ -43,6 +44,25 @@ int main () {
     
     // do it
     printCombinations(letters, "", repetition);
+}
+
+
+//
+//  containsAny (char* set, char* string)
+//
+//  returns 1 if string contains any of the chars in set
+//
+int containsAny (char* set, char* string) {
+    
+    for (int i = 0; i < strlen(set); i++) {
+        
+        // if string contains the letter
+        if (strrchr(string, set[i]) != NULL) {
+            return 1;
+        }
+    }
+    
+    return 0;
 }
 
 
@@ -118,23 +138,4 @@ void printCombinations (char* letters, char* prefix, int repetition) {
         }
         
     }
-}
-
-
-//
-//  containsAny (char* set, char* string)
-//
-//  returns 1 if string contains any of the chars in set
-//
-int containsAny (char* set, char* string) {
-    
-    for (int i = 0; i < strlen(set); i++) {
-        
-        // if string contains the letter
-        if (strrchr(string, set[i]) != NULL) {
-            return 1;
-        }
-    }
-    
-    return 0;
 }
