@@ -38,7 +38,7 @@ unsigned long int getNextPrime (unsigned long int n) {
         
         int isPrime = 1;
         
-        for (unsigned long int j = 2; j < i*i; j++) {
+        for (unsigned long int j = 2; j*j <= i; j++) {
             
             if (!(i%j) && i != j) {
                 isPrime = 0;
