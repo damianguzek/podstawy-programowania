@@ -8,7 +8,7 @@
 #include <stdio.h>
 #include <math.h>
 
-const char  letter_a    = 97;
+const char  LETTER_A    = 97;
 
 int main () {
     
@@ -21,7 +21,7 @@ int main () {
     
     for (int i = 0; i < 3; i++) {
         
-        printf("Podaj parametr %c: ", (char) (letter_a + i));
+        printf("Podaj parametr %c: ", (char) (LETTER_A + i));
         scanf("%f", &params[i]);
     }
     
