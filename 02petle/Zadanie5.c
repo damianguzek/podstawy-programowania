@@ -23,6 +23,7 @@ void    menu        ();
 void    calc        (char*);
 void    push        (float);
 float   pop         ();
+void    addHistory  (char*);
 
 
 //
@@ -35,7 +36,11 @@ int main () {
     
     // init
     clr();
-    menu();
+    
+    // continuous input
+    while (1) {
+        menu();
+    }
 }
 
 
@@ -104,7 +109,7 @@ void calc (char* input) {
             first   = pop();
             push(first);
             
-            printf("= %f\n", first);
+            printf(">%s = %f\n", history, first);
             break;
             
         // clear
@@ -125,13 +130,7 @@ void calc (char* input) {
     }
     
     // add to history
-    if (input[0] != 'c' && input[0] != '=') {
-        strcat(history, " ");
-        strcat(history, input);
-    }
-    
-    // return to menu
-    menu();
+    addHistory(input);
 }
 
 
@@ -159,4 +158,18 @@ void push (float number) {
 float pop () {
     // if we are in bounds, pop stack
     return current_place == 0 ? 0 : stack[--current_place];
+}
+
+
+//
+//  addHistory (char* input)
+//  adds input to history
+//
+void addHistory (char* input) {
+    
+    // ignore clr and =
+    if (input[0] != 'c' && input[0] != '=') {
+        strcat(history, " ");
+        strcat(history, input);
+    }
 }
