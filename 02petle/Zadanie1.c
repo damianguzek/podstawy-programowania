@@ -20,7 +20,7 @@ int main () {
         scanf("%d", &n);
         
         // is this our new max?
-        if (n > max) {
+        if (n > max || !i) {
             max = n;
         }
     }
